@@ -1,0 +1,25 @@
+﻿@model List<ProductListComponentViewModel>
+
+
+	<table class="table table-success table-striped-">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Aciklama</th>
+			
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+				<tr>
+					
+					<td>@item.Name</td>
+					<td>@item.Description</td>
+				</tr>
+		}
+
+
+
+	</tbody>
+
+</table>

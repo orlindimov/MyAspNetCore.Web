@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+@model ProductViewModel
+<h1>Urun Ekleme</h1>
+
+<div asp-validation-summary="ModelOnly"></div>
+
+
+<form asp-controller="Products" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+    @*product controlleria gider ve addproduct metot tipi olarak postu kullanir*@
+    @*enctype="multipart/formdata" =resim icin bunu vermemiz gerekiyo*@
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Urun Ismi :</label>
+        <input class="form-control" asp-for="Name" >  
+        <span class ="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label">Urun Fiyat :</label>
+        <input class="form-control" asp-for="Price" >    
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Stock" class="form-label">Urun Stok :</label>
+        <input type="number" class="form-control" asp-for="Stock">
+        <span class="text-danger" asp-validation-for="Stock"></span>
+    </div>
+
+      <div class="mb-3">
+       @* <label asp-for="Color" class="form-label">Urun Renk :</label>
+        <input  class="form-control" asp-for="Color">*@
+
+        <select class="form-select" asp-for="Color"asp-items="@ViewBag.ColorSelect">
+            <option value="">Renk seciniz</option>
+        </select>
+    </div>
+
+
+    <div class="form-check">
+  <input class="form-check-input" asp-for="IsPublish">@*boolen type oldugu icin check box ile belirtmiyoruz*@
+  <label class="form-check-label" asp-for="IsPublish">
+    Yayinlansin mi?
+  </label>
+    </div>
+
+  <div class ="mb-3 mt-3">
+      <span>Urun Kac Ay satista kalacak ?</span>
+  @foreach (var item in ViewBag.Expire as  Dictionary<string,int>)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="radio"id="@(item.Value)Expire" asp-for="Expire" value="@item.Value"  >
+                <label class="form-check-label" asp-for="Expire" for="@(item.Value)Expire">
+                  @item.Key
+                </label>
+            </div>
+        }
+        </div>
+
+    <div class="form-floating">
+        <textarea asp-for="Description" class="form-control"placeholder="Urun Aciklama" style="height:100px "></textarea>
+        <label asp-for="Description">Urun Aciklama</label>
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PublishDate" class="form-label">Urun yayinlanma tarihi :</label>
+        <input class="form-control" asp-for="PublishDate">
+        <span class="text-danger" asp-validation-for="PublishDate"></span>
+    </div>
+
+    
+      <div class="mb-3">
+
+        <select class="form-select" asp-for="CategoryId"asp-items="@ViewBag.categorySelect">
+            <option value="">kategori seciniz</option>
+        </select>
+        <span class="text-danger" asp-validation-for="CategoryId"></span>
+    </div>
+
+    <div class ="mb-3">
+        <label for="formFileLg" class="form-label">Urun Resim</label>
+        <input class="form-control form-control-lg" asp-for="Image" type="file">
+    </div>
+
+
+
+
+    <button class="btn btn-primary" type="submit">Urun Kaydet</button>
+</form>
+    @*br alt alta gozukmesini saglar*@
+    @*submit ile veritabanina gitmesini saglar*@
+
+    @section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @*script ile validationlarin sayfa tekrar yuklenmeden daha hizli gelmesini saglar*@
+    }
+
+
+

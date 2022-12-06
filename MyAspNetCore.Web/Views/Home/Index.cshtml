@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    var product = new Product() { Id = 1, Name = "kalem1", Price = 100, Stock = 50 };
+}
+
+@section Css
+{
+    <style>
+
+    </style>
+}
+
+@section Scripts
+{
+   
+}
+<div class="row">
+    <div class="col-md-4">
+        <partial name="~/PartialViews/_ProductListPartialView.cshtml" model="@ViewBag.productListPartialViewModel" />
+        @*partial klasoru share icerisinde olursa direkt ismini verebiliriz degilse~ ile veriyoruz*@
+
+    </div>
+
+    <div class="col-md-4">
+
+       @* 1.yol*@
+        @*await Component.InvokeAsync("ProductList",new{type=1})*@
+
+        @*2.yol*@
+        <vc:product-list type=1></vc:product-list>
+    </div>
+
+    <div class="col-md-4">
+        <italic>asp.net.core</italic>
+        <product-show product="@product"></product-show>
+
+       
+    </div>
+
+</div>
+
+<div>
+    <img src="~/images/toka1.jpg" />
+
+    <thumbnail image-src="images/toka2.jpg"></thumbnail>
+
+</div>
+
+
+
+
+
+
+
